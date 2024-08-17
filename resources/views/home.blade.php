@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <h1>Student List</h1>
-    <button class="btn btn-primary" data-toggle="modal" data-target="#addStudentModal">Add New Student</button>
+  <hr/>
     @if ($errors->any())
         <div class="alert alert-danger">
             @foreach ($errors->all() as $error)
@@ -23,8 +23,13 @@
             {{ session('danger') }}
         </div>
     @endif
-    
-    <table class="table mt-4">
+    <div class="card mt-4">
+        <div class="mt-3 pl-3">
+            <button class="btn btn-primary p-3" data-toggle="modal" data-target="#addStudentModal"><i class="fa fa-plus"></i>  Add New Student</button>
+        </div>
+          
+        <div class="card-body shadow">
+        <table class="table table-bordered mt-4">
         <thead>
             <tr>
                 <th>Name</th>
@@ -40,17 +45,20 @@
                     <td>{{ $student->subject_name }}</td>
                     <td>{{ $student->marks }}</td>
                     <td>
-                        <button class="btn btn-success" onclick="openEditModal({{ $student->id }}, '{{ $student->name }}', '{{ $student->subject_name }}', {{ $student->marks }})">Edit</button>
+                        <button class="btn btn-success" onclick="openEditModal({{ $student->id }}, '{{ $student->name }}', '{{ $student->subject_name }}', {{ $student->marks }})"><i class="fa fa-edit"></i> Edit</button>
                         <form action="/students/{{ $student->id }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
-                            <button class="btn btn-danger">Delete</button>
+                            <button class="btn btn-danger"><i class="fa fa-trash"></i> Delete</button>
                         </form>
                     </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
+        </div>
+    </div>
+    
 
     <!-- Add Student Modal -->
     <div class="modal fade" id="addStudentModal" tabindex="-1" role="dialog" aria-labelledby="addStudentModalLabel" aria-hidden="true">

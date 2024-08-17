@@ -1,7 +1,7 @@
 <?php $__env->startSection('content'); ?>
 <div class="container">
     <h1>Student List</h1>
-    <button class="btn btn-primary" data-toggle="modal" data-target="#addStudentModal">Add New Student</button>
+  <hr/>
     <?php if($errors->any()): ?>
         <div class="alert alert-danger">
             <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -23,8 +23,13 @@
 
         </div>
     <?php endif; ?>
-    
-    <table class="table mt-4">
+    <div class="card mt-4">
+        <div class="mt-3 pl-3">
+            <button class="btn btn-primary p-3" data-toggle="modal" data-target="#addStudentModal"><i class="fa fa-plus"></i>  Add New Student</button>
+        </div>
+          
+        <div class="card-body shadow">
+        <table class="table table-bordered mt-4">
         <thead>
             <tr>
                 <th>Name</th>
@@ -40,17 +45,20 @@
                     <td><?php echo e($student->subject_name); ?></td>
                     <td><?php echo e($student->marks); ?></td>
                     <td>
-                        <button class="btn btn-success" onclick="openEditModal(<?php echo e($student->id); ?>, '<?php echo e($student->name); ?>', '<?php echo e($student->subject_name); ?>', <?php echo e($student->marks); ?>)">Edit</button>
+                        <button class="btn btn-success" onclick="openEditModal(<?php echo e($student->id); ?>, '<?php echo e($student->name); ?>', '<?php echo e($student->subject_name); ?>', <?php echo e($student->marks); ?>)"><i class="fa fa-edit"></i> Edit</button>
                         <form action="/students/<?php echo e($student->id); ?>" method="POST" style="display:inline;">
                             <?php echo csrf_field(); ?>
                             <?php echo method_field('DELETE'); ?>
-                            <button class="btn btn-danger">Delete</button>
+                            <button class="btn btn-danger"><i class="fa fa-trash"></i> Delete</button>
                         </form>
                     </td>
                 </tr>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </tbody>
     </table>
+        </div>
+    </div>
+    
 
     <!-- Add Student Modal -->
     <div class="modal fade" id="addStudentModal" tabindex="-1" role="dialog" aria-labelledby="addStudentModalLabel" aria-hidden="true">
